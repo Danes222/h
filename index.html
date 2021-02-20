@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- 
+	Kode diketik dalam kondisi gabut
+-->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Reverse Copypasta</title>
+	<style>
+
+		body {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-family: arial;
+			overflow-x: hidden;
+		}
+
+		.container {
+			width: 100%;
+			text-align: center;
+		}
+
+		#teks {
+			padding: 1vh;
+		}
+		textarea {
+			resize: none;
+		}
+		#hasil {
+			display: inline-block;
+			width: 300px;
+			height:25vh;
+			border: 3px solid grey;
+			margin-bottom: 1vh;
+			padding: 1vh;
+			overflow-y: scroll;
+			text-align: left;
+		}
+		small {
+			font-size: 13px;
+			color: grey;
+		}
+		.penutup {
+			position: absolute;
+			background: black;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+</head>
+<body onclick="cetak()">
+
+	<div class="container">
+		<h2>Reverse Copypasta Tool
+			<br> 
+			<small>membalik setiap kata dalam teks copypasta kamu.</small>
+			<br>
+		</h2>
+		
+ 		<textarea onkeyup="cetak();" autofocus="" name="teks" id="teks" cols="35" rows="7" placeholder="masukkan atau ketik teks kamu disini.."></textarea>
+		<p><button onclick="refresh();">Refresh</button></p>
+
+ 		<form action="" method="post" class="tipe" name="tipe">
+ 		<input type="radio" name="tipeTeks" class="tipe" id="1" value="1" onclick="cetak();" checked=""><label for="1">tipe1</label>
+		<input type="radio" name="tipeTeks" class="tipe" id="2" value="2" onclick="cetak();"><label for="2">tipe2</label>
+		<input type="radio" name="tipeTeks" class="tipe" id="3" value="3" onclick="cetak();"><label for="3">tipe3</label>
+		</form><br>
+
+ 		<div name="teks" id="hasil">Nanti hasilnya muncul disini..</div><br>
+		<button onclick="copyToClipboard()">Copy hasil</button>
+
+	</div>
+
+
+
+
+
+	<script type="text/javascript">
+
+		function cetak() {
+
+			var tipe = document.tipe.tipeTeks.value;
+
+			var teks = document.getElementById('teks').value;
+			var splitString = teks.split('');
+			var reverseArray = splitString.reverse();
+			var hasil = reverseArray.join('');
+
+			if (tipe == '1') {
+				document.getElementById("hasil").innerHTML = hasil;
+
+				var teks2 = document.getElementById("hasil").innerHTML;
+				var splitString2 = teks2.split(' ');
+				var reverseArray2 = splitString2.reverse();
+				var hasil2 = reverseArray2.join(' ');
+				document.getElementById("hasil").innerHTML = hasil2;
+				document.getElementById("hasil").style.background = 'none';
+				document.getElementById("hasil").style.color = 'black';
+			}
+			else if (tipe == '2') {
+				document.getElementById("hasil").innerHTML = hasil;
+				document.getElementById("hasil").style.background = 'none';
+				document.getElementById("hasil").style.color = 'black';
+			}
+			else if (tipe == '3') {
+				var hasil3 = " ";
+				document.getElementById("hasil").innerHTML = hasil3;
+				document.getElementById("teks").value = '╭∩╮(･◡･)╭∩╮';
+
+				document.getElementById("hasil").style.background = 'url("https://i.ytimg.com/vi/ha8CpobEYRc/maxresdefault.jpg")';
+				document.getElementById("hasil").style.backgroundSize = 'cover';
+				document.getElementById("teks").style.backgroundSize = 'cover';
+				document.getElementById("hasil").style.color = '#ffffff25';
+
+			}
+
+			if (document.getElementById("teks").value == '') {
+				document.getElementById("hasil").innerHTML = 'Nanti hasilnya muncul disini..';
+			}
+
+		}
+
+
+
+
+		function copyToClipboard() {
+            var range = document.createRange();
+            var hasil = document.getElementById("hasil");
+            range.selectNode(hasil);
+            window.getSelection().removeAllRanges(); // clear current selection
+            window.getSelection().addRange(range); // to select text
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();// to deselect
+            alert('Teks kamu berhasil dicopy ke clipboard!');
+        }
+
+		function refresh() {
+			document.getElementById("teks").value = document.getElementById("hasil").innerHTML = '';
+			document.getElementById("hasil").style.background = 'none';
+		}
+
+	</script>
+	
+</body>
+</html>
